@@ -24,8 +24,8 @@
 - [Angular CLI](https://angular.io/) >= 18.0
 - [.NET SDK](https://dotnet.microsoft.com/) >= 8.0
 - قاعدة بيانات **SQL Server**
-
----
+  **ملحوظة مهمة جد**
+  ---no sql script i using code first in .net project jsut update-database and will created with you
 
 ## 🚀 **تشغيل المشروع**
 
