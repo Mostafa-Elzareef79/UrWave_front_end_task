@@ -1,0 +1,144 @@
+<div class="m-8 p-6 bg-white shadow-2xl rounded-lg overflow-hidden">
+<div>  <form [formGroup]="searchForm"  >
+  <div class="d-flex align-items-center">
+   
+
+    <input
+    formControlName="searchText"
+    name="searchText"
+    type="text"
+    class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
+    placeholder="Search"
+    aria-label="Search"
+  />
+
+<button type="button"class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md m-2
+hover:bg-blue-700 hover:shadow-lg transition duration-300 ease-in-out"  (click)="searchEmployees()">
+<i class="fas fa-search"></i>
+</button>
+
+  </div>
+</form>
+<div class="loader-overlay" *ngIf="loading">
+  <div class="loader"></div>
+</div>
+</div>
+  <div >
+    <h1 class="text-center text-red-800 shadow-xl font-bold py-4 text-lg">Manage Products</h1>
+    <div >
+      <button class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md m-2
+      hover:bg-blue-700 hover:shadow-lg transition duration-300 ease-in-out" (click)="openAddProductForm()" > <i class="fas fa-plus-circle"></i>Add Product</button>
+      
+    </div>
+  </div>
+  <p-table [value]="searchProducts" [paginator]="true" [sortMode]="'single'" [rows]="pageSize" responsiveLayout="scroll"
+    class="w-full border border-gray-300 shadow-xl rounded-lg overflow-hidden">
+    <ng-template pTemplate="header">
+      <tr  class="bg-blue-600 text-white text-left h-16">
+        <th  class="px-4 py-2">No </th>
+        <th pSortableColumn="name" class="px-4 py-2">Product Name <p-sortIcon field="name"></p-sortIcon> </th>
+        <th pSortableColumn="price" class="px-4 py-2">Price ($) <p-sortIcon field="price"></p-sortIcon></th>
+        <th pSortableColumn="description" class="px-4 py-2">Description <p-sortIcon field="description"></p-sortIcon></th>
+        <th pSortableColumn="createdDate" class="px-4 py-2">Created Date <p-sortIcon field="createdDate"></p-sortIcon></th>
+        <th class="px-4 py-2">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-i="rowIndex">
+      <tr class="border-b hover:bg-gray-100 transition">
+        <td class="px-4 py-2">{{ i + 1 }}</td>
+        <td class="px-4 py-2">{{ product.name }}</td>
+        <td class="px-4 py-2">{{ product.price }} $</td>
+        <td class="px-4 py-2">{{ product.description }}</td>
+        <td class="px-4 py-2">{{ product.createdDate }}</td>
+        <td class="px-4 py-2">
+          <button type="button" class="bg-red-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md 
+            hover:bg-red-700 hover:shadow-lg transition duration-300 ease-in-out" 
+            (click)="openDeleteDialog(product.id)"><i class="fas fa-trash-alt"></i>
+          </button>
+          <button type="button" class="mx-2 bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md 
+          hover:bg-green-700 hover:shadow-lg transition duration-300 ease-in-out " 
+          (click)="openEditProductForm(product)"><i class="fas fa-pencil-alt"></i>
+        </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div *ngIf="searchProducts&&searchProducts.length === 0" class="text-center text-red-600 font-bold py-4 text-lg">
+  No Data Available
+</div>
+<div id="popupForm" class="popupForm" >
+    
+  <form   [formGroup]="formProduct" >
+      <h1 *ngIf="formProduct.get('id')?.value==''" class="text-center text-red-800 shadow-xl font-bold py-4 text-lg">Add Product </h1>
+      <h1 *ngIf="formProduct.get('id')?.value!=''" class="text-center text-red-800 shadow-xl font-bold py-4 text-lg">Edit Product </h1>
+      <label >Name</label>
+      <input type="text" class="form-control" maxlength="100" formControlName="name"  name="name" required>
+      <div>
+        <small
+          *ngIf="(name?.errors?.['required'] && name?.touched)"
+          class="text-red-600 font-bold py-4 text-sm"
+        >
+        name is required
+        </small>
+        <small
+        *ngIf="(name?.errors?.['maxlength'] && name?.touched)"
+        class="text-red-600 font-bold py-4 text-sm"
+      >
+      name max length is 100
+      </small>
+      </div>
+      <label >Price</label>
+      <input type="text" class="form-control" appAllowonlynumbers formControlName="price"  name="price" required>
+     
+      <div>
+        <small
+          *ngIf="(price?.errors?.['required'] && price?.touched)"
+          class="text-red-600 font-bold py-4 text-sm"
+        >
+        price is required
+        </small>
+        
+      </div>
+      <label >Description</label>
+
+      <input class="form-control" type="text"  formControlName="description" name="description" required>
+      <div>
+        <small
+          *ngIf="(description?.errors?.['required'] && description?.touched)"
+          class="text-red-600 font-bold py-4 text-sm"
+        >
+        description is required
+        </small>
+    
+        <small
+          *ngIf="(description?.errors?.['maxlength'] && description?.touched)"
+          class="text-red-600 font-bold py-4 text-sm"
+        >
+        description max length is 500
+        </small>
+      </div>
+      
+   
+    
+    
+    <div class="row">
+      
+      <div *ngIf="formProduct.get('id')?.value==''" class="col-lg-6 mb-3 mb-lg-0">
+        <button   (click)="addProduct()" type="button" class="shadow-lg bg-blue-500 text-white font-semibold py-2 px-4 rounded w-1/2 hover:bg-blue-600 transition"  >Add</button>
+      </div>
+      <div  *ngIf="formProduct.get('id')?.value!=''" class="col-lg-6 mb-3 mb-lg-0">
+        <button   (click)="editProduct()" type="button" class="shadow-lg bg-blue-500 text-white font-semibold py-2 px-4 rounded w-1/2 hover:bg-blue-600 transition"  >Edit</button>
+      </div>
+      <div class="col-lg-6 mb-3 mb-lg-0">
+        <button
+          type="button"
+        (click)="closeForm()"
+        class="shadow-lg bg-blue-500 text-white font-semibold py-2 px-4 rounded w-1/2 hover:bg-blue-600 transition">
+        
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

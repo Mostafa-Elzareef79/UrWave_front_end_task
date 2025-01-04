@@ -1,0 +1,90 @@
+@import 'ngx-toastr/toastr';
+
+
+.mat-dialog-container{
+    padding: 5px !important;
+    position: relative !important;
+}
+.mat-dialog-content{
+    margin: 0 !important;
+    padding: 0 10px 12px !important;
+}
+.mat-mdc-dialog-container .mdc-dialog__surface{
+    overflow-y: initial;
+    border-radius: 10px !important;
+    box-shadow: unset !important;
+}
+
+.header-dialog{
+    border-bottom: 1px solid rgba(112, 112, 112, 0.08);
+    height: 50px !important;
+    background: linear-gradient(90deg, rgb(11, 183, 231) 10%, rgb(0, 106, 255) 100%);
+    border-radius: 10px 10px 0px 0px ;
+}
+.dialog-title{
+    color: white !important;
+}
+.mat-dialog-title{
+    margin: 0 !important;
+}
+.close-icon{
+    border: 1px solid #f35456 !important;
+    color: #f35456 !important;
+    background-color: white !important;
+    width: 25px !important;
+    height: 25px !important;
+    padding: 0 !important;
+    .material-icons{
+        font-size: 19px;
+        display: block !important;
+    }
+}
+
+@media screen and (max-width:400px) {
+  .header-icon-container {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+}
+
+
+.cdk-overlay-pane::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.cdk-overlay-pane:has(app-dialog) {
+  max-height: 100% !important;
+  overflow: auto;
+  overflow-x: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+@media only screen and (min-width:961px) {
+  .cdk-overlay-pane:has(mat-dialog-container) {
+    position: absolute !important;
+    top: 50%;
+    right: 40%;
+    transform: translate(50%, -50%);
+    max-height: unset !important;
+
+  }
+
+  .cdk-overlay-pane:has(app-dialog) {
+     /* max-width: 57% !important; */
+    position: absolute !important;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    max-height: unset !important;
+
+  }
+
+
+
+
+}
+
+

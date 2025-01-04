@@ -1,0 +1,29 @@
+<div fxLayout="row" class="header-dialog" fxLayoutAlign="space-between center"> 
+  <h3 fxLayoutAlign="start center" mat-dialog-title class="dialog-title px-2 pt-3">
+    {{ data.title }}
+  </h3>
+</div>
+
+<div mat-dialog-content class="dialog-content">
+  <p class="font-bold text-gray-700">{{ data.message }}</p> 
+</div>
+
+<div mat-dialog-actions class="dialog-actions">
+  <button *ngIf="data.showConfrimButton" 
+          (keydown.enter)="$event.preventDefault()" 
+          [mat-dialog-close]="'ok'" 
+          mat-raised-button  
+          class="mx-1 primary-btn font-bold bg-blue-600 text-white px-4 py-2 rounded shadow-md hover:bg-blue-700 transition"
+          tabindex="2">
+      {{ data.confrimButton }}
+  </button>
+  
+  <button *ngIf="data.showCancelButton" 
+          (keydown.enter)="$event.preventDefault()" 
+          (click)="onNoClick()" 
+          mat-raised-button  
+          class="mx-1 cancel-btn font-bold bg-gray-400 text-white px-4 py-2 rounded shadow-md hover:bg-gray-500 transition"
+          tabindex="-1">
+      {{ data.cancelButton }}
+  </button>
+</div>  
