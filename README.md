@@ -32,6 +32,7 @@
 ### **1️⃣ تشغيل الواجهة الأمامية (Frontend - Angular)**
 
 ````front
+make sure you have a good connection cdn tailwend work only using good internet connection
 cd UrWave_front_end_task
 npm install
 ng serve -o
